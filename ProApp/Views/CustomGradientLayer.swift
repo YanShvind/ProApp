@@ -12,9 +12,9 @@ final class CustomGradientLayer: CALayer, CustomGradientLayerBackground {
     var itemSize: CGFloat!
     var view: UIView
     
-    var firstGradient: CustomGradientLayerSpot!
-    var secondGradient: CustomGradientLayerSpot!
-    var thirdGradient: CustomGradientLayerSpot!
+    private var firstGradient: CustomGradientLayerSpot!
+    private var secondGradient: CustomGradientLayerSpot!
+    private var thirdGradient: CustomGradientLayerSpot!
     
     init(view: UIView) {
         self.itemSize = view.frame.width
@@ -29,35 +29,32 @@ final class CustomGradientLayer: CALayer, CustomGradientLayerBackground {
         self.setupLayerBackground(view: view)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     func setupLayerBackground(view: UIView) {
-        
-        firstGradient.frame = CGRect(x: itemSize / -2.5,
-                                     y: -350,
-                                     width: itemSize,
-                                     height: itemSize)
-        
-        secondGradient.frame = CGRect(x: view.frame.width + 100,
-                                      y: view.frame.height / 2 - itemSize / 2,
-                                      width: itemSize,
-                                      height: itemSize)
-        
-        thirdGradient.frame = CGRect(x: itemSize / -2.5,
-                                     y: view.frame.height + 350,
-                                     width: itemSize,
-                                     height: itemSize)
-        firstGradient.accessibilityTraits = .updatesFrequently
-        
-        firstGradient.opacity = 0.15
-        secondGradient.opacity = 0.15
-        thirdGradient.opacity = 0.15
-
         self.addSublayer(firstGradient)
         self.addSublayer(secondGradient)
         self.addSublayer(thirdGradient)
+        
+        firstGradient.colors = [
+            UIColor.blue.cgColor,
+            UIColor.blue.cgColor,
+            UIColor.black.cgColor
+        ]
+        
+        secondGradient.colors = [
+            UIColor.red.cgColor,
+            UIColor.red.cgColor,
+            UIColor.black.cgColor
+        ]
+        
+        thirdGradient.colors = [
+            UIColor.purple.cgColor,
+            UIColor.purple.cgColor,
+            UIColor.black.cgColor
+        ]
+        
+        firstGradient.opacity = 0.15
+        secondGradient.opacity = 0.05
+        thirdGradient.opacity = 0.15
         
         firstGradient.frame = CGRect(x: view.frame.width - (itemSize / 1.5),
                                      y: view.frame.height * -0.15,
@@ -73,5 +70,9 @@ final class CustomGradientLayer: CALayer, CustomGradientLayerBackground {
                                      y: view.frame.height * 0.6,
                                      width: itemSize,
                                      height: itemSize)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

@@ -11,14 +11,13 @@ final class CustomGradientLayerSpot: CAGradientLayer {
     init(locations: [NSNumber]) {
         super.init()
         
-        self.type = .axial
         self.cornerRadius = 10
         
         self.colors = [
-            UIColor.warmPink.cgColor,
-            UIColor.warmPink.cgColor,
-            UIColor.black.cgColor
+            UIColor.clear.cgColor,
+            UIColor.clear.cgColor
         ]
+        
         self.locations = locations
         self.startPoint = CGPoint(x: 0.5, y: 0.5)
         self.endPoint = CGPoint(x: 1, y: 1)
