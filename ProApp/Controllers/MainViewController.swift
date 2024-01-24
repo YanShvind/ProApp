@@ -9,20 +9,24 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-//    private var loginView: MainView {
-//        return view as! MainView
-//    }
-//    
-//    override func loadView() {
-//        view = MainView()
-//    }
+    private var loginView: MainView {
+        return view as! MainView
+    }
+    
+    override func loadView() {
+        view = MainView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let layer = CustomGradientLayer(view: loginView)
+        loginView.layer.addSublayer(layer)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = .black
-        let layer = CustomGradientLayer(view: view)
-        self.view.layer.addSublayer(layer)
     }
 
 }

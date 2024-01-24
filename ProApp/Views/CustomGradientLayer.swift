@@ -53,8 +53,8 @@ final class CustomGradientLayer: CALayer, CustomGradientLayerBackground {
         ]
         
         firstGradient.opacity = 0.15
-        secondGradient.opacity = 0.05
-        thirdGradient.opacity = 0.15
+        secondGradient.opacity = 0.09
+        thirdGradient.opacity = 0.2
         
         firstGradient.frame = CGRect(x: view.frame.width - (itemSize / 1.5),
                                      y: view.frame.height * -0.15,
