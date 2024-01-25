@@ -18,6 +18,7 @@
 		6D1613102B600F3500850ED1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D16130F2B600F3500850ED1 /* MainViewModel.swift */; };
 		6D1613122B600F4600850ED1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1613112B600F4600850ED1 /* DetailViewModel.swift */; };
 		6D1613142B60E2C900850ED1 /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1613132B60E2C900850ED1 /* CryptoTableViewCell.swift */; };
+		6D5FFBA42B629A4A0044404B /* CryptoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5FFBA32B629A4A0044404B /* CryptoData.swift */; };
 		6DBAE7292B60F2D3001D84F7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBAE7282B60F2D3001D84F7 /* Extensions.swift */; };
 		6DBAE72B2B616FBB001D84F7 /* CustomGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBAE72A2B616FBB001D84F7 /* CustomGradientLayer.swift */; };
 		6DBAE72D2B616FF1001D84F7 /* CustomGradientLayerBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBAE72C2B616FF1001D84F7 /* CustomGradientLayerBackground.swift */; };
@@ -38,6 +39,7 @@
 		6D16130F2B600F3500850ED1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6D1613112B600F4600850ED1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		6D1613132B60E2C900850ED1 /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
+		6D5FFBA32B629A4A0044404B /* CryptoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoData.swift; sourceTree = "<group>"; };
 		6DBAE7282B60F2D3001D84F7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6DBAE72A2B616FBB001D84F7 /* CustomGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientLayer.swift; sourceTree = "<group>"; };
 		6DBAE72C2B616FF1001D84F7 /* CustomGradientLayerBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientLayerBackground.swift; sourceTree = "<group>"; };
@@ -89,7 +91,6 @@
 			children = (
 				6D1612F42B600D0F00850ED1 /* MainViewController.swift */,
 				6D1613092B600EC900850ED1 /* DetailViewController.swift */,
-				6D1613132B60E2C900850ED1 /* CryptoTableViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -99,6 +100,7 @@
 			children = (
 				6D16130B2B600EE700850ED1 /* MainView.swift */,
 				6D16130D2B600EFD00850ED1 /* DetailView.swift */,
+				6D1613132B60E2C900850ED1 /* CryptoTableViewCell.swift */,
 				6DBAE72E2B61700D001D84F7 /* Gradient */,
 			);
 			path = Views;
@@ -107,6 +109,7 @@
 		6D1613062B600DD700850ED1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6D5FFBA32B629A4A0044404B /* CryptoData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				6DBAE7292B60F2D3001D84F7 /* Extensions.swift in Sources */,
 				6DBAE7302B61702C001D84F7 /* CustomGradientLayerSpot.swift in Sources */,
 				6D16130C2B600EE700850ED1 /* MainView.swift in Sources */,
+				6D5FFBA42B629A4A0044404B /* CryptoData.swift in Sources */,
 				6D16130A2B600EC900850ED1 /* DetailViewController.swift in Sources */,
 				6D1613122B600F4600850ED1 /* DetailViewModel.swift in Sources */,
 				6D1613142B60E2C900850ED1 /* CryptoTableViewCell.swift in Sources */,

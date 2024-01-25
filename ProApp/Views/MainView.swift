@@ -48,10 +48,9 @@ final class MainView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .black
                 
-        viewModel.fetchCryptoData { result in
+        viewModel.fetchCryptoData(page: 1) { result in
             switch result {
             case .success(let models):
-                print(models)
                 DispatchQueue.main.async {
                     self.viewModel.assetData = models
                     self.tableView.reloadData()
@@ -61,6 +60,8 @@ final class MainView: UIView {
             }
         }
 
+        viewModel.delegate = self
+        
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
         
@@ -90,5 +91,19 @@ extension MainView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+}
+
+extension MainView: MainViewModelDelegate {
+    func updateUI(result: Result<AssetData, Error>) {
+        switch result {
+        case .success(let models):
+            DispatchQueue.main.async {
+                self.viewModel.assetData = models
+                self.tableView.reloadData()
+            }
+        case .failure(let error):
+            print("Error: \(error)")
+        }
     }
 }
