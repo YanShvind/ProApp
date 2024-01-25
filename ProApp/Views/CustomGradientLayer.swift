@@ -37,19 +37,19 @@ final class CustomGradientLayer: CALayer, CustomGradientLayerBackground {
         firstGradient.colors = [
             UIColor.blue.cgColor,
             UIColor.blue.cgColor,
-            UIColor.black.cgColor
+            UIColor.clear.cgColor
         ]
         
         secondGradient.colors = [
             UIColor.red.cgColor,
             UIColor.red.cgColor,
-            UIColor.black.cgColor
+            UIColor.clear.cgColor
         ]
         
         thirdGradient.colors = [
             UIColor.purple.cgColor,
             UIColor.purple.cgColor,
-            UIColor.black.cgColor
+            UIColor.clear.cgColor
         ]
         
         firstGradient.opacity = 0.15

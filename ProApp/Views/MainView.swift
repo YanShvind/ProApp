@@ -33,11 +33,36 @@ final class MainView: UIView {
         return button
     }()
     
-    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.rowHeight = 72
+        tableView.backgroundColor = .clear
+        tableView.allowsSelection = false
+        tableView.register(CryptoTableViewCell.self,
+                           forCellReuseIdentifier: CryptoTableViewCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .black
+                
+        viewModel.fetchCryptoData { result in
+            switch result {
+            case .success(let models):
+                print(models)
+                DispatchQueue.main.async {
+                    self.viewModel.assetData = models
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+
+        tableView.delegate = viewModel
+        tableView.dataSource = viewModel
         
         setupUI()
     }
@@ -49,7 +74,7 @@ final class MainView: UIView {
 
 extension MainView {
     private func setupUI() {
-        addSubviews(titleLabel, searchButton)
+        addSubviews(titleLabel, searchButton, tableView)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -58,7 +83,12 @@ extension MainView {
             searchButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
             searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             searchButton.heightAnchor.constraint(equalToConstant: 40),
-            searchButton.widthAnchor.constraint(equalToConstant: 40)
+            searchButton.widthAnchor.constraint(equalToConstant: 40),
+            
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
