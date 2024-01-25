@@ -33,6 +33,31 @@ final class MainView: UIView {
         return button
     }()
     
+    private let cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Cancel", for: .normal)
+        button.setTitleColor(.gray, for: .normal)
+        button.backgroundColor = .clear
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private let textField: UITextField = {
+        let textField = UITextField()
+        textField.layer.borderWidth = 0.5
+        textField.layer.cornerRadius = 12
+        textField.textColor = .white
+        textField.backgroundColor = .clear
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.isHidden = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        textField.setLeftView(image: UIImage(systemName: "magnifyingglass")!)
+        
+        return textField
+    }()
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = 72
@@ -47,7 +72,7 @@ final class MainView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .black
-                
+        
         viewModel.fetchCryptoData(page: 1) { result in
             switch result {
             case .success(let models):
@@ -59,13 +84,37 @@ final class MainView: UIView {
                 print("Error: \(error)")
             }
         }
-
+        
         viewModel.delegate = self
         
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
         
+        searchButton.addTarget(self,
+                               action: #selector(searchButtonPressed),
+                               for: .touchUpInside)
+        cancelButton.addTarget(self,
+                               action: #selector(cancelButtonPressed),
+                               for: .touchUpInside)
+        
         setupUI()
+    }
+    
+    @objc
+    private func searchButtonPressed() {
+        updateTopUI(isSearching: true)
+    }
+    
+    @objc
+    private func cancelButtonPressed() {
+        updateTopUI(isSearching: false)
+    }
+    
+    private func updateTopUI(isSearching: Bool) {
+        titleLabel.isHidden = isSearching
+        searchButton.isHidden = isSearching
+        textField.isHidden = !isSearching
+        cancelButton.isHidden = !isSearching
     }
     
     required init?(coder: NSCoder) {
@@ -75,7 +124,8 @@ final class MainView: UIView {
 
 extension MainView {
     private func setupUI() {
-        addSubviews(titleLabel, searchButton, tableView)
+        addSubviews(titleLabel, searchButton, tableView,
+                    cancelButton, textField)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -89,7 +139,15 @@ extension MainView {
             tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            cancelButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            
+            textField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            textField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7),
+            textField.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
 }
