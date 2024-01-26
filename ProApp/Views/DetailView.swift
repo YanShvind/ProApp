@@ -110,6 +110,10 @@ final class DetailView: UIView {
         self.data = data
         super.init(frame: frame)
         
+        let infoData = [data.marketCapUsd.formattedMarketCap(),
+                        data.supply.formattedMarketCapNoDollar(),
+                        data.volumeUsd24Hr.formattedMarketCap()]
+
         priceLabel.text = "\(data.priceUsd)"
         
         let change = data.changePercent24Hr
@@ -122,7 +126,7 @@ final class DetailView: UIView {
             let valueLabel = UILabel()
                         
             titleLabel.text = "\(labelsTexts[counter])"
-            valueLabel.text = "text2"
+            valueLabel.text = infoData[counter]
             
             titleLabel.font = .systemFont(ofSize: 12)
             valueLabel.font = .systemFont(ofSize: 16)
@@ -176,15 +180,15 @@ extension DetailView {
             changePriceLabel.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 7),
             
             verticalFirstStackView.topAnchor.constraint(equalTo: verticalFirstUIView.topAnchor),
-            verticalFirstStackView.leadingAnchor.constraint(equalTo: verticalFirstUIView.leadingAnchor),
+            verticalFirstStackView.leadingAnchor.constraint(equalTo: verticalFirstUIView.leadingAnchor, constant: -10),
             verticalFirstStackView.trailingAnchor.constraint(equalTo: verticalFirstUIView.trailingAnchor),
             
             verticalSecondStackView.topAnchor.constraint(equalTo: verticalSecondUIView.topAnchor),
-            verticalSecondStackView.leadingAnchor.constraint(equalTo: verticalSecondUIView.leadingAnchor),
+            verticalSecondStackView.leadingAnchor.constraint(equalTo: verticalSecondUIView.leadingAnchor, constant: -10),
             verticalSecondStackView.trailingAnchor.constraint(equalTo: verticalSecondUIView.trailingAnchor),
             
             verticalThirdStackView.topAnchor.constraint(equalTo: verticalThirdUIView.topAnchor),
-            verticalThirdStackView.leadingAnchor.constraint(equalTo: verticalThirdUIView.leadingAnchor, constant: -15),
+            verticalThirdStackView.leadingAnchor.constraint(equalTo: verticalThirdUIView.leadingAnchor, constant: -10),
             verticalThirdStackView.trailingAnchor.constraint(equalTo: verticalThirdUIView.trailingAnchor),
             
             horizontalStackview.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 20),
@@ -193,3 +197,4 @@ extension DetailView {
         ])
     }
 }
+

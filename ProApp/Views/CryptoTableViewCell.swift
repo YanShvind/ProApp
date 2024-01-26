@@ -111,3 +111,4 @@ extension CryptoTableViewCell {
         ])
     }
 }
+
