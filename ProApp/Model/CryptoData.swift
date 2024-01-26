@@ -19,7 +19,7 @@ struct Asset: Codable {
     let id: String
     let symbol: String
     let name: String
-    let priceUsd: Double 
+    let priceUsd: Double
     let changePercent24Hr: Double
 
     private enum CodingKeys: String, CodingKey {

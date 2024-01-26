@@ -9,6 +9,8 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    private var gradientLayer: CustomGradientLayer?
+
     private var mainView: MainView {
         return view as! MainView
     }
@@ -19,23 +21,24 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let layer = CustomGradientLayer(view: mainView)
-        mainView.layer.addSublayer(layer)
+        self.navigationController?.navigationBar.isHidden = true
+
+        if gradientLayer == nil {
+            gradientLayer = CustomGradientLayer(view: mainView)
+            mainView.layer.addSublayer(gradientLayer!)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = true
         mainView.delegate = self
     }
-    
 }
 
 extension MainViewController: MainViewDelegate {
     func openDetalVC(data: Asset) {
-        let detailVC = DetailViewController()
+        let detailVC = DetailViewController(data: data)
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.pushViewController(detailVC, animated: false)
     }

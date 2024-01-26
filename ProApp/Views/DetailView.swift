@@ -9,6 +9,8 @@ import UIKit
 
 final class DetailView: UIView {
     
+    private let data: Asset
+    
     private let priceLabel = UILabel(text: "$ 4 4332.55",
                                      textColor: .white,
                                      font: .systemFont(ofSize: 24))
@@ -99,37 +101,59 @@ final class DetailView: UIView {
         return image
     }()
     
+    private var changeCostPrice = 0.0
+    private var changeCostPriceString = ""
     private let labelsTexts = ["Market Cap", "Supply", "Volume 24Hr"]
     private var counter = 0
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, data: Asset) {
+        self.data = data
         super.init(frame: frame)
         
+        priceLabel.text = "\(data.priceUsd)"
+        
+        let change = data.changePercent24Hr
+        changeCostPrice = data.priceUsd * (change * 0.01)
+        changeCostPriceString = String(format: "%.2f", changeCostPrice)
+        costChange(change: change)
+
         [verticalFirstStackView, verticalSecondStackView, verticalThirdStackView].forEach { sv in
-            let ulText = UILabel()
-            let ulTextTwo = UILabel()
+            let titleLabel = UILabel()
+            let valueLabel = UILabel()
                         
-            ulText.text = "\(labelsTexts[counter])"
-            ulTextTwo.text = "text2"
+            titleLabel.text = "\(labelsTexts[counter])"
+            valueLabel.text = "text2"
             
-            ulText.font = .systemFont(ofSize: 12)
-            ulTextTwo.font = .systemFont(ofSize: 16)
+            titleLabel.font = .systemFont(ofSize: 12)
+            valueLabel.font = .systemFont(ofSize: 16)
             
-            ulText.textColor = .gray
-            ulTextTwo.textColor = .white
+            titleLabel.textColor = .gray
+            valueLabel.textColor = .white
             
-            sv.addArrangedSubview(ulText)
-            sv.addArrangedSubview(ulTextTwo)
-            counter+=1
+            sv.addArrangedSubview(titleLabel)
+            sv.addArrangedSubview(valueLabel)
+            counter += 1
         }
         
         setupUI()
     }
     
+    private func costChange(change: Double) {
+        if change < 0 {
+            self.changePriceLabel.text = "\(changeCostPriceString) (\(change)%)"
+            self.changePriceLabel.textColor = .red
+        } else if change > 0 {
+            self.changePriceLabel.text = "+ \(changeCostPriceString) (\(change)%)"
+            self.changePriceLabel.textColor = .green
+        } else {
+            self.changePriceLabel.text = "\(changeCostPriceString) (\(change)%)"
+            self.changePriceLabel.textColor = .green
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 extension DetailView {
