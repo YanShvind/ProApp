@@ -16,9 +16,9 @@
 		6D16130C2B600EE700850ED1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D16130B2B600EE700850ED1 /* MainView.swift */; };
 		6D16130E2B600EFD00850ED1 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D16130D2B600EFD00850ED1 /* DetailView.swift */; };
 		6D1613102B600F3500850ED1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D16130F2B600F3500850ED1 /* MainViewModel.swift */; };
-		6D1613122B600F4600850ED1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1613112B600F4600850ED1 /* DetailViewModel.swift */; };
 		6D1613142B60E2C900850ED1 /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1613132B60E2C900850ED1 /* CryptoTableViewCell.swift */; };
 		6D5FFBA42B629A4A0044404B /* CryptoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5FFBA32B629A4A0044404B /* CryptoData.swift */; };
+		6DAA2CE12B643A2A006948D7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6DAA2CE32B643A2A006948D7 /* Localizable.strings */; };
 		6DBAE7292B60F2D3001D84F7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBAE7282B60F2D3001D84F7 /* Extensions.swift */; };
 		6DBAE72B2B616FBB001D84F7 /* CustomGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBAE72A2B616FBB001D84F7 /* CustomGradientLayer.swift */; };
 		6DBAE72D2B616FF1001D84F7 /* CustomGradientLayerBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBAE72C2B616FF1001D84F7 /* CustomGradientLayerBackground.swift */; };
@@ -37,9 +37,11 @@
 		6D16130B2B600EE700850ED1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6D16130D2B600EFD00850ED1 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		6D16130F2B600F3500850ED1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		6D1613112B600F4600850ED1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		6D1613132B60E2C900850ED1 /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
 		6D5FFBA32B629A4A0044404B /* CryptoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoData.swift; sourceTree = "<group>"; };
+		6DAA2CDE2B6439DF006948D7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6DAA2CE22B643A2A006948D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6DAA2CE42B643A2C006948D7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6DBAE7282B60F2D3001D84F7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6DBAE72A2B616FBB001D84F7 /* CustomGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientLayer.swift; sourceTree = "<group>"; };
 		6DBAE72C2B616FF1001D84F7 /* CustomGradientLayerBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientLayerBackground.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				6D1613052B600DCF00850ED1 /* Views */,
 				6D1613042B600DBF00850ED1 /* Controllers */,
 				6D1612FE2B600D1000850ED1 /* Info.plist */,
+				6DAA2CE32B643A2A006948D7 /* Localizable.strings */,
 			);
 			path = ProApp;
 			sourceTree = "<group>";
@@ -118,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				6D16130F2B600F3500850ED1 /* MainViewModel.swift */,
-				6D1613112B600F4600850ED1 /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -187,6 +189,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 6D1612E42B600D0F00850ED1;
 			productRefGroup = 6D1612EE2B600D0F00850ED1 /* Products */;
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D1612FD2B600D1000850ED1 /* LaunchScreen.storyboard in Resources */,
+				6DAA2CE12B643A2A006948D7 /* Localizable.strings in Resources */,
 				6D1612FA2B600D1000850ED1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,7 +231,6 @@
 				6D16130C2B600EE700850ED1 /* MainView.swift in Sources */,
 				6D5FFBA42B629A4A0044404B /* CryptoData.swift in Sources */,
 				6D16130A2B600EC900850ED1 /* DetailViewController.swift in Sources */,
-				6D1613122B600F4600850ED1 /* DetailViewModel.swift in Sources */,
 				6D1613142B60E2C900850ED1 /* CryptoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,8 +242,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				6D1612FC2B600D1000850ED1 /* Base */,
+				6DAA2CDE2B6439DF006948D7 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6DAA2CE32B643A2A006948D7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6DAA2CE22B643A2A006948D7 /* en */,
+				6DAA2CE42B643A2C006948D7 /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -251,6 +264,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -314,6 +328,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

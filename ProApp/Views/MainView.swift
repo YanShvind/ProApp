@@ -18,7 +18,7 @@ final class MainView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Trending Coins"
+        label.text = "Trending Coins".localized()
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ final class MainView: UIView {
     
     private let cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("Cancel".localized(), for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.backgroundColor = .clear
         button.isHidden = true
@@ -81,17 +81,7 @@ final class MainView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .black
         
-        viewModel.fetchCryptoData(page: 1) { result in
-            switch result {
-            case .success(let models):
-                DispatchQueue.main.async {
-                    self.viewModel.filteredData = models.data
-                    self.tableView.reloadData()
-                }
-            case .failure(let error):
-                print("Error: \(error)")
-            }
-        }
+        fetchCoins()
         
         viewModel.delegate = self
         
@@ -117,6 +107,10 @@ final class MainView: UIView {
     @objc
     private func cancelButtonPressed() {
         updateTopUI(isSearching: false)
+        
+        if viewModel.filteredData?.count == 1 {
+            fetchCoins()
+        }
     }
     
     private func updateTopUI(isSearching: Bool) {
@@ -124,6 +118,20 @@ final class MainView: UIView {
         searchButton.isHidden = isSearching
         searchBar.isHidden = !isSearching
         cancelButton.isHidden = !isSearching
+    }
+    
+    private func fetchCoins() {
+        viewModel.fetchCryptoData(page: 1) { result in
+            switch result {
+            case .success(let models):
+                DispatchQueue.main.async {
+                    self.viewModel.filteredData = models.data
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -150,7 +158,7 @@ extension MainView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            cancelButton.topAnchor.constraint(equalTo: topAnchor, constant: 65),
+            cancelButton.topAnchor.constraint(equalTo: topAnchor, constant: 70),
             cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
             searchBar.topAnchor.constraint(equalTo: topAnchor, constant: 65),

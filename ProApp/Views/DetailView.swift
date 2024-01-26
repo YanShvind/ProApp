@@ -103,7 +103,9 @@ final class DetailView: UIView {
     
     private var changeCostPrice = 0.0
     private var changeCostPriceString = ""
-    private let labelsTexts = ["Market Cap", "Supply", "Volume 24Hr"]
+    private let labelsTexts = ["Market Cap".localized(),
+                               "Supply".localized(),
+                               "Volume 24Hr".localized()]
     private var counter = 0
     
     init(frame: CGRect, data: Asset) {
@@ -181,7 +183,7 @@ extension DetailView {
             
             verticalFirstStackView.topAnchor.constraint(equalTo: verticalFirstUIView.topAnchor),
             verticalFirstStackView.leadingAnchor.constraint(equalTo: verticalFirstUIView.leadingAnchor, constant: -10),
-            verticalFirstStackView.trailingAnchor.constraint(equalTo: verticalFirstUIView.trailingAnchor),
+            verticalFirstStackView.trailingAnchor.constraint(equalTo: verticalFirstUIView.trailingAnchor, constant: 15),
             
             verticalSecondStackView.topAnchor.constraint(equalTo: verticalSecondUIView.topAnchor),
             verticalSecondStackView.leadingAnchor.constraint(equalTo: verticalSecondUIView.leadingAnchor, constant: -10),
