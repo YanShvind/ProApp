@@ -9,17 +9,119 @@ import UIKit
 
 final class DetailView: UIView {
     
-    private let priceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "$ 3 232.55"
-        label.font = .systemFont(ofSize: 24)
-        label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private let priceLabel = UILabel(text: "$ 4 4332.55",
+                                     textColor: .white,
+                                     font: .systemFont(ofSize: 24))
+    
+    private let changePriceLabel = UILabel(text: "+ 100.48 (4.32%)",
+                                           textColor: .green,
+                                           font: .systemFont(ofSize: 14))
+    
+    private let horizontalStackview: UIStackView = {
+        let horizontalStackview = UIStackView()
+        horizontalStackview.distribution = .fillEqually
+        horizontalStackview.axis = .horizontal
+        horizontalStackview.spacing = 0
+        horizontalStackview.translatesAutoresizingMaskIntoConstraints = false
+        return horizontalStackview
     }()
-
+    
+    private let verticalFirstUIView: UIView = {
+        let verticalFirstUIView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 80))
+        verticalFirstUIView.backgroundColor = .clear
+        verticalFirstUIView.layer.borderWidth = 2
+        verticalFirstUIView.layer.borderColor = UIColor.clear.cgColor
+        verticalFirstUIView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalFirstUIView
+    }()
+    
+    private let verticalSecondUIView: UIView = {
+        let verticalSecondUIView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 80))
+        verticalSecondUIView.backgroundColor = .clear
+        verticalSecondUIView.layer.borderWidth = 2
+        verticalSecondUIView.layer.borderColor = UIColor.clear.cgColor
+        verticalSecondUIView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalSecondUIView
+    }()
+    
+    private let verticalThirdUIView: UIView = {
+        let verticalThirdUIView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 80))
+        verticalThirdUIView.backgroundColor = .clear
+        verticalThirdUIView.layer.borderWidth = 2
+        verticalThirdUIView.layer.borderColor = UIColor.clear.cgColor
+        verticalThirdUIView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalThirdUIView
+    }()
+    
+    private let verticalFirstStackView: UIStackView = {
+        let verticalFirstStackView = UIStackView()
+        verticalFirstStackView.axis = .vertical
+        verticalFirstStackView.alignment = .center
+        verticalFirstStackView.distribution = .fillEqually
+        verticalFirstStackView.spacing = 5
+        verticalFirstStackView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalFirstStackView
+    }()
+    
+    private let verticalSecondStackView: UIStackView = {
+        let verticalSecondStackView = UIStackView()
+        verticalSecondStackView.axis = .vertical
+        verticalSecondStackView.alignment = .center
+        verticalSecondStackView.distribution = .fillEqually
+        verticalSecondStackView.spacing = 5
+        verticalSecondStackView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalSecondStackView
+    }()
+    
+    private let verticalThirdStackView: UIStackView = {
+        let verticalThirdStackView = UIStackView()
+        verticalThirdStackView.axis = .vertical
+        verticalThirdStackView.alignment = .center
+        verticalThirdStackView.distribution = .fillEqually
+        verticalThirdStackView.spacing = 5
+        verticalThirdStackView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalThirdStackView
+    }()
+    
+    private let lineImage1: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "line")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private let lineImage2: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "line")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private let labelsTexts = ["Market Cap", "Supply", "Volume 24Hr"]
+    private var counter = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        [verticalFirstStackView, verticalSecondStackView, verticalThirdStackView].forEach { sv in
+            let ulText = UILabel()
+            let ulTextTwo = UILabel()
+                        
+            ulText.text = "\(labelsTexts[counter])"
+            ulTextTwo.text = "text2"
+            
+            ulText.font = .systemFont(ofSize: 12)
+            ulTextTwo.font = .systemFont(ofSize: 16)
+            
+            ulText.textColor = .gray
+            ulTextTwo.textColor = .white
+            
+            sv.addArrangedSubview(ulText)
+            sv.addArrangedSubview(ulTextTwo)
+            counter+=1
+        }
         
         setupUI()
     }
@@ -32,13 +134,38 @@ final class DetailView: UIView {
 
 extension DetailView {
     private func setupUI() {
-        addSubviews(priceLabel)
+        addSubviews(priceLabel, changePriceLabel, horizontalStackview)
+        
+        verticalFirstUIView.addSubviews(verticalFirstStackView, verticalSecondStackView, verticalThirdStackView)
+        
+        horizontalStackview.addArrangedSubview(verticalFirstUIView)
+        horizontalStackview.addArrangedSubview(lineImage1)
+        horizontalStackview.addArrangedSubview(verticalSecondUIView)
+        horizontalStackview.addArrangedSubview(lineImage2)
+        horizontalStackview.addArrangedSubview(verticalThirdUIView)
         
         NSLayoutConstraint.activate([
             priceLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
+            changePriceLabel.topAnchor.constraint(equalTo: priceLabel.topAnchor, constant: 6),
+            changePriceLabel.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 7),
             
+            verticalFirstStackView.topAnchor.constraint(equalTo: verticalFirstUIView.topAnchor),
+            verticalFirstStackView.leadingAnchor.constraint(equalTo: verticalFirstUIView.leadingAnchor),
+            verticalFirstStackView.trailingAnchor.constraint(equalTo: verticalFirstUIView.trailingAnchor),
+            
+            verticalSecondStackView.topAnchor.constraint(equalTo: verticalSecondUIView.topAnchor),
+            verticalSecondStackView.leadingAnchor.constraint(equalTo: verticalSecondUIView.leadingAnchor),
+            verticalSecondStackView.trailingAnchor.constraint(equalTo: verticalSecondUIView.trailingAnchor),
+            
+            verticalThirdStackView.topAnchor.constraint(equalTo: verticalThirdUIView.topAnchor),
+            verticalThirdStackView.leadingAnchor.constraint(equalTo: verticalThirdUIView.leadingAnchor, constant: -15),
+            verticalThirdStackView.trailingAnchor.constraint(equalTo: verticalThirdUIView.trailingAnchor),
+            
+            horizontalStackview.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 20),
+            horizontalStackview.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            horizontalStackview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
         ])
     }
 }
