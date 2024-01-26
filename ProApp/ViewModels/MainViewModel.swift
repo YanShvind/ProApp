@@ -10,6 +10,7 @@ import UIKit
 
 protocol MainViewModelDelegate: AnyObject {
     func updateUI(result: Result<AssetData, Error>)
+    func updateSearchUI(result: Result<Asset, Error>)
     func openDetailScreen(data: Asset)
 }
 
@@ -17,7 +18,8 @@ final class MainViewModel: NSObject {
     
     weak var delegate: MainViewModelDelegate?
     
-    var assetData: AssetData?
+    var filteredData: [Asset]?
+    
     var currentPage = 1
     let pageSize = 10
     
@@ -40,13 +42,38 @@ final class MainViewModel: NSObject {
         }
         task.resume()
     }
+    
+    func searchAssetDetails(symbol: String, completion: @escaping (Result<Asset, Error>) -> Void) {
+        let apiUrl = "https://api.coincap.io/v2/assets/\(symbol.lowercased())"
+        
+        guard let url = URL(string: apiUrl) else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(.failure(error ?? NSError(domain: "Network error", code: 1, userInfo: nil)))
+                return
+            }
+            
+            do {
+                let apiResponse = try JSONDecoder().decode(ApiResponse.self, from: data)
+                completion(.success(apiResponse.data))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        
+        task.resume()
+    }
 }
 
 extension MainViewModel: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return assetData?.data.count ?? 0
+        return filteredData?.count ?? 0
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: CryptoTableViewCell.identifier,
@@ -55,7 +82,7 @@ extension MainViewModel: UITableViewDataSource, UITableViewDelegate {
             fatalError()
         }
         
-        let asset = assetData?.data[indexPath.row]
+        let asset = filteredData?[indexPath.row]
         cell.changeData(name: asset?.name ?? "",
                         symbol: asset?.symbol ?? "",
                         price: asset?.priceUsd ?? 0.0,
@@ -64,9 +91,10 @@ extension MainViewModel: UITableViewDataSource, UITableViewDelegate {
         cell.backgroundColor = .clear
         return cell
     }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let selectedAsset = assetData?.data[indexPath.row] {
+        if let selectedAsset = filteredData?[indexPath.row] {
             delegate?.openDetailScreen(data: selectedAsset)
         } else {
             print("Selected asset is nil.")
@@ -93,6 +121,11 @@ extension MainViewModel: UITableViewDataSource, UITableViewDelegate {
 extension MainViewModel: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
-        print(searchText)
+        
+        searchAssetDetails(symbol: searchText) { result in
+            DispatchQueue.main.async {
+                self.delegate?.updateSearchUI(result: result)
+            }
+        }
     }
 }

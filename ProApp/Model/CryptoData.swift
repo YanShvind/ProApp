@@ -8,8 +8,9 @@
 import Foundation
 
 struct ApiResponse: Codable {
-    let data: AssetData
+    let data: Asset
 }
+
 
 struct AssetData: Codable {
     let data: [Asset]

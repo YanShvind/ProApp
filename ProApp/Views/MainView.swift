@@ -85,7 +85,7 @@ final class MainView: UIView {
             switch result {
             case .success(let models):
                 DispatchQueue.main.async {
-                    self.viewModel.assetData = models
+                    self.viewModel.filteredData = models.data
                     self.tableView.reloadData()
                 }
             case .failure(let error):
@@ -162,11 +162,23 @@ extension MainView {
 }
 
 extension MainView: MainViewModelDelegate {
+    func updateSearchUI(result: Result<Asset, Error>) {
+        switch result {
+        case .success(let models):
+            DispatchQueue.main.async {
+                self.viewModel.filteredData = [models]
+                self.tableView.reloadData()
+            }
+        case .failure(let error):
+            print("Error: \(error)")
+        }
+    }
+    
     func updateUI(result: Result<AssetData, Error>) {
         switch result {
         case .success(let models):
             DispatchQueue.main.async {
-                self.viewModel.assetData = models
+                self.viewModel.filteredData = models.data
                 self.tableView.reloadData()
             }
         case .failure(let error):
