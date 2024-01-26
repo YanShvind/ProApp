@@ -8,13 +8,37 @@
 import UIKit
 
 final class DetailView: UIView {
+    
+    private let priceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "$ 3 232.55"
+        label.font = .systemFont(ofSize: 24)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupUI()
     }
-    */
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
 
+extension DetailView {
+    private func setupUI() {
+        addSubviews(priceLabel)
+        
+        NSLayoutConstraint.activate([
+            priceLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            
+            
+        ])
+    }
 }

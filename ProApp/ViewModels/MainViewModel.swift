@@ -10,6 +10,7 @@ import UIKit
 
 protocol MainViewModelDelegate: AnyObject {
     func updateUI(result: Result<AssetData, Error>)
+    func openDetailScreen(data: Asset)
 }
 
 final class MainViewModel: NSObject {
@@ -64,6 +65,14 @@ extension MainViewModel: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let selectedAsset = assetData?.data[indexPath.row] {
+            delegate?.openDetailScreen(data: selectedAsset)
+        } else {
+            print("Selected asset is nil.")
+        }
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         let currentOffset = scrollView.contentOffset.y
@@ -78,5 +87,12 @@ extension MainViewModel: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         }
+    }
+}
+
+extension MainViewModel: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        print(searchText)
     }
 }

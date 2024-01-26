@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct ApiResponse: Codable {
+    let data: AssetData
+}
+
 struct AssetData: Codable {
     let data: [Asset]
 }

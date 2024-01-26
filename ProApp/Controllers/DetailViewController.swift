@@ -8,22 +8,28 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
+    
+    private var detailView: DetailView {
+        return view as! DetailView
+    }
+    
+    override func loadView() {
+        view = DetailView()
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.backItem?.title = "Custom"
+        
+        let layer = CustomGradientLayer(view: detailView)
+        detailView.layer.addSublayer(layer)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

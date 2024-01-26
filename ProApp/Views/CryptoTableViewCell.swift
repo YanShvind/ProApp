@@ -88,7 +88,8 @@ final class CryptoTableViewCell: UITableViewCell {
 
 extension CryptoTableViewCell {
     private func setupCryptoImageView() {
-        contentView.addSubviews(cryptoImageView, nameLabel, descriptionLabel, priceLabel, changeLabel)
+        contentView.addSubviews(cryptoImageView, nameLabel, descriptionLabel,
+                                priceLabel, changeLabel)
 
         NSLayoutConstraint.activate([
             cryptoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

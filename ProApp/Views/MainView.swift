@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol MainViewDelegate: AnyObject {
+    func openDetalVC(data: Asset)
+}
+
 final class MainView: UIView {
     
+    weak var delegate: MainViewDelegate?
     private let viewModel = MainViewModel()
     
     private let titleLabel: UILabel = {
@@ -43,26 +48,29 @@ final class MainView: UIView {
         return button
     }()
     
-    private let textField: UITextField = {
-        let textField = UITextField()
-        textField.layer.borderWidth = 0.5
-        textField.layer.cornerRadius = 12
-        textField.textColor = .white
-        textField.backgroundColor = .clear
-        textField.layer.borderColor = UIColor.gray.cgColor
-        textField.isHidden = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        
-        textField.setLeftView(image: UIImage(systemName: "magnifyingglass")!)
-        
-        return textField
+    private var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.backgroundColor = .clear
+        searchBar.layer.borderWidth = 0.5
+        searchBar.layer.cornerRadius = 12
+        searchBar.layer.borderColor = UIColor.gray.cgColor
+        searchBar.searchTextField.backgroundColor = .clear
+        searchBar.searchTextField.textColor = .white
+        searchBar.barTintColor = .clear
+        searchBar.barStyle = .default
+        searchBar.sizeToFit()
+        searchBar.isTranslucent = false
+        searchBar.backgroundImage = UIImage()
+        searchBar.isHidden = true
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
     }()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = 72
         tableView.backgroundColor = .clear
-        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
         tableView.register(CryptoTableViewCell.self,
                            forCellReuseIdentifier: CryptoTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,6 +97,7 @@ final class MainView: UIView {
         
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
+        searchBar.delegate = viewModel
         
         searchButton.addTarget(self,
                                action: #selector(searchButtonPressed),
@@ -113,7 +122,7 @@ final class MainView: UIView {
     private func updateTopUI(isSearching: Bool) {
         titleLabel.isHidden = isSearching
         searchButton.isHidden = isSearching
-        textField.isHidden = !isSearching
+        searchBar.isHidden = !isSearching
         cancelButton.isHidden = !isSearching
     }
     
@@ -125,13 +134,13 @@ final class MainView: UIView {
 extension MainView {
     private func setupUI() {
         addSubviews(titleLabel, searchButton, tableView,
-                    cancelButton, textField)
+                    cancelButton, searchBar)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 70),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
-            searchButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
+            searchButton.topAnchor.constraint(equalTo: topAnchor, constant: 65),
             searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             searchButton.heightAnchor.constraint(equalToConstant: 40),
             searchButton.widthAnchor.constraint(equalToConstant: 40),
@@ -141,13 +150,13 @@ extension MainView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            cancelButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            cancelButton.topAnchor.constraint(equalTo: topAnchor, constant: 65),
             cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            textField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            textField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7),
-            textField.heightAnchor.constraint(equalToConstant: 40),
+            searchBar.topAnchor.constraint(equalTo: topAnchor, constant: 65),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            searchBar.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7),
+            searchBar.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
 }
@@ -163,5 +172,9 @@ extension MainView: MainViewModelDelegate {
         case .failure(let error):
             print("Error: \(error)")
         }
+    }
+    
+    func openDetailScreen(data: Asset) {
+        delegate?.openDetalVC(data: data)
     }
 }

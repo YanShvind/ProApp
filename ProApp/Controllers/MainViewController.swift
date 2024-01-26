@@ -9,7 +9,7 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    private var loginView: MainView {
+    private var mainView: MainView {
         return view as! MainView
     }
     
@@ -19,15 +19,24 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        let layer = CustomGradientLayer(view: loginView)
-        loginView.layer.addSublayer(layer)
+        
+        let layer = CustomGradientLayer(view: mainView)
+        mainView.layer.addSublayer(layer)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.navigationController?.navigationBar.isHidden = true
+        mainView.delegate = self
     }
-
+    
 }
 
+extension MainViewController: MainViewDelegate {
+    func openDetalVC(data: Asset) {
+        let detailVC = DetailViewController()
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.pushViewController(detailVC, animated: false)
+    }
+}
